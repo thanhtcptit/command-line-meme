@@ -7,5 +7,11 @@ db = client['test']
 coll = db['images']
 
 # db.images.aggregate([{$sample: {size: 1}}])
-result = coll.aggregate([{"$sample": {"size": 1}}])
-sys.stdout.write(list(result)[0]['img_url'])
+result = list(coll.aggregate([{"$sample": {"size": int(sys.argv[1])}}]))
+urls = []
+for r in result:
+    if not r:
+        continue
+    urls.append(r['img_url'])
+
+sys.stdout.write(' '.join(urls))
