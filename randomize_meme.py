@@ -10,7 +10,7 @@ coll = db['images']
 result = list(coll.aggregate([{"$sample": {"size": int(sys.argv[1])}}]))
 urls = []
 for r in result:
-    if not r:
+    if not r['img_url']:
         continue
     urls.append(r['img_url'])
 
